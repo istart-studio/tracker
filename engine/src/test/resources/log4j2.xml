@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="basePath">./logs</Property>
+    </Properties>
+
+    <appenders>
+        <!-- console -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5p] %d %c - %m%n"/>
+        </Console>
+    </appenders>
+
+    <loggers>
+        <root level="info">
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+</Configuration>
