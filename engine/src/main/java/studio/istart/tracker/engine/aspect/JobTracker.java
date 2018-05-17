@@ -1,4 +1,4 @@
-package studio.istart.tracker.engine;
+package studio.istart.tracker.engine.aspect;
 
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
+import studio.istart.tracker.engine.Monitor;
 
 /**
  * @author DongYan
@@ -16,30 +17,22 @@ import org.springframework.stereotype.Component;
 @Log4j2
 @Aspect
 @Component
-public class TaskTracker {
+public class JobTracker {
 
 
-    @Pointcut("@within(studio.istart.tracker.annoation.TaskEvent)")
+    @Pointcut("execution(@studio.istart.tracker.engine.annoation.TraceJob * *(..))")
     public void processMethod() {
-
     }
 
-    @Pointcut("execution(public * *(..))")
-    public void publicMethod() {
-    }
 
-    @Pointcut("publicMethod() && processMethod()")
-    public void publicMethodInsideAClassMarkedWithAtMonitor() {
-    }
-
-    @Before("publicMethodInsideAClassMarkedWithAtMonitor()")
-    public void logMethodAnnotatedBean(JoinPoint joinPoint) throws ClassNotFoundException, IllegalAccessException {
+    @Before("processMethod()")
+    public void logMethodAnnotatedBean(JoinPoint joinPoint) throws Throwable {
         log.info("before");
         Monitor.record(joinPoint);
     }
 
 
-    @After("publicMethodInsideAClassMarkedWithAtMonitor()")
+    @After("processMethod()")
     public void after(JoinPoint joinPoint) throws Throwable {
         log.info("after");
         Monitor.record(joinPoint);

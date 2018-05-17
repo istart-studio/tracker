@@ -1,6 +1,5 @@
-package studio.istart.tracker.annoation;
+package studio.istart.tracker.engine.annoation;
 
-import org.springframework.stereotype.Component;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,14 +8,13 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * 标记Event
+ * TraceJob
+ *
  * @author DongYan
  * @version 1.0.0
  * @since 1.8
  */
-
 @Retention(value = RUNTIME)
-@Target(value = {ElementType.TYPE, ElementType.METHOD})
-public @interface TaskEvent {
-
+@Target(value = {ElementType.METHOD})
+public @interface TraceJob {
 }

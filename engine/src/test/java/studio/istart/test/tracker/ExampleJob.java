@@ -1,9 +1,9 @@
-package studio.istart.tracker;
+package studio.istart.test.tracker;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import studio.istart.tracker.annoation.Job;
-import studio.istart.tracker.annoation.TaskEvent;
+import studio.istart.tracker.engine.annoation.TraceJob;
 
 /**
  * @author DongYan
@@ -11,7 +11,7 @@ import studio.istart.tracker.annoation.TaskEvent;
  * @since 1.8
  */
 @Component
-public class ExampleProcess {
+public class ExampleJob {
 
     @Autowired
     ExampleTaskEvent exampleTaskEvent;
@@ -20,7 +20,8 @@ public class ExampleProcess {
 
     String internalProp = "Internal prop";
 
-    @Job
+    @TraceJob
+    @Scheduled(cron = "0 0/1 * * * *")
     public void example1() throws InterruptedException {
         exampleTaskEvent.start("this is a start prop", "second arg");
         exampleTaskEvent.processed();
@@ -29,8 +30,9 @@ public class ExampleProcess {
         Thread.sleep(5000);
     }
 
-    @Job
-    public void example2(String jobArg1) throws InterruptedException {
+    @TraceJob
+    @Scheduled(cron = "0/30 * * * * *")
+    public void example2() throws InterruptedException {
         exampleTaskEvent.start("this is a start prop", "second arg");
         exampleTaskEvent.processed();
         exampleTaskEvent_2.start("this event 2", "event 2");

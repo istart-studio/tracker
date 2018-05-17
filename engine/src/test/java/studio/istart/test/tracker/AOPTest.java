@@ -6,9 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import studio.istart.tracker.Application;
-import studio.istart.tracker.ExampleProcess;
-import studio.istart.tracker.ExampleTaskEvent;
 import studio.istart.tracker.engine.Monitor;
 
 /**
@@ -23,10 +20,10 @@ public class AOPTest {
     @Autowired
     ExampleTaskEvent exampleTaskEvent;
     @Autowired
-    ExampleProcess exampleProcess;
+    ExampleJob exampleJob;
 
     @Test
-    public void task() throws InterruptedException {
+    public void task() {
         exampleTaskEvent.start("this is a start prop", "second arg");
         exampleTaskEvent.processed();
         exampleTaskEvent.end("this is an end prop", "1", "2");
@@ -34,7 +31,7 @@ public class AOPTest {
 
     @Test
     public void process() throws InterruptedException {
-        exampleProcess.example2("job");
+        exampleJob.example2();
     }
 
     @After

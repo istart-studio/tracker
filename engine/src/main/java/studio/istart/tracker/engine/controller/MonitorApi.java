@@ -1,10 +1,11 @@
-package studio.istart.tracker.controller;
+package studio.istart.tracker.engine.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import studio.istart.tracker.engine.Monitor;
-import studio.istart.tracker.entity.MonitorUnit;
+import studio.istart.tracker.engine.entity.MonitorUnit;
 
+import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -17,7 +18,7 @@ import java.util.Map;
 public class MonitorApi {
 
     @RequestMapping("/cache")
-    public Map<String,MonitorUnit> cache() {
-        return Monitor.getCache();
+    public Collection<MonitorUnit> cache() {
+        return Monitor.getCache().values();
     }
 }

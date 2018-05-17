@@ -1,6 +1,7 @@
-package studio.istart.tracker.entity;
+package studio.istart.tracker.engine.entity;
 
 import lombok.Data;
+import studio.istart.tracker.engine.constant.EventEnum;
 
 import java.time.Instant;
 import java.util.Map;
@@ -17,7 +18,9 @@ import java.util.stream.Collectors;
 @Data
 public class MonitorUnit {
     private String instanceId;
-    private String classMethod;
+    private String className;
+    private String methodName;
+    private EventEnum eventEnum;
     private long startTime;
     private long endTime;
     private Set<String> subInstanceIds;
@@ -31,19 +34,23 @@ public class MonitorUnit {
             .collect(Collectors.joining(","));
         return "MonitorUnit{" +
             "instanceId='" + instanceId + '\'' +
-            ", classMethod='" + classMethod + '\'' +
+            ", className='" + className + '\'' +
+            ", methodName='" + methodName + '\'' +
+            ", eventEnum=" + eventEnum +
             ", startTime=" + startTime +
             ", endTime=" + endTime +
             ", subInstanceIds=" + subInstanceIdsString +
-            ", args.keys=" + argsKeyString +
+            ", argsKeyString=" + argsKeyString +
             '}';
     }
 
-    public static MonitorUnit begin(String instanceId, String classMethod, Set<String> subInstanceIds, Map<String, Object> args) {
+    public static MonitorUnit begin(String instanceId, String className, String methodName, EventEnum eventEnum, Set<String> subInstanceIds, Map<String, Object> args) {
         MonitorUnit monitorUnit = new MonitorUnit();
         monitorUnit.setInstanceId(instanceId);
         monitorUnit.setStartTime(Instant.now().toEpochMilli());
-        monitorUnit.setClassMethod(classMethod);
+        monitorUnit.setClassName(className);
+        monitorUnit.setMethodName(methodName);
+        monitorUnit.setEventEnum(eventEnum);
         monitorUnit.setSubInstanceIds(subInstanceIds);
         monitorUnit.setArgs(args);
         return monitorUnit;
