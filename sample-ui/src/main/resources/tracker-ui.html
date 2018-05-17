@@ -28,12 +28,13 @@
             <table class="table table-condensed table-hover table-responsive">
                 <thead>
                 <tr>
+                    <th class="active">unitId</th>
                     <th class="active">instanceId</th>
                     <th class="success">className</th>
                     <th class="warning">methodName</th>
                     <th class="danger">eventEnum</th>
                     <th class="info">startTime</th>
-                    <th>endTime</th>
+                    <th class="info">endTime</th>
                     <th>subInstanceIds</th>
                     <th>args</th>
                 </tr>
@@ -41,12 +42,13 @@
                 <tbody id="main">
                 <!-- On cells (`td` or `th`) -->
                 <tr id="rowTemplate" style="display: none">
+                    <td class="active">unitId</td>
                     <td class="active">instanceId</td>
                     <td class="success">className</td>
                     <td class="warning">methodName</td>
                     <td class="danger">eventEnum</td>
                     <td class="info">startTime</td>
-                    <td>endTime</td>
+                    <td class="info">endTime</td>
                     <td>subInstanceIds</td>
                     <td>args</td>
                 </tr>
@@ -109,7 +111,7 @@
             initData(respone);
         });
     };
-    setInterval(requestData, 200);
+    setInterval(requestData, 500);
 </script>
 </body>
 </html>

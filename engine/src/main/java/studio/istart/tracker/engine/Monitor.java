@@ -38,8 +38,9 @@ public class Monitor {
     }
 
     public static synchronized void record(JoinPoint joinPoint) throws IllegalAccessException {
+        String unitId = String.valueOf(joinPoint.getSignature().hashCode());
         Object instance = joinPoint.getThis();
-        String instanceId = String.valueOf(instance.hashCode());
+        String instanceId = String.valueOf(joinPoint.getThis().hashCode());
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
 
@@ -61,20 +62,21 @@ public class Monitor {
 
         /* 获取实例类型 */
         EventEnum eventEnum;
-        if (instance.getClass().getAnnotation(TraceTask.class) != null) {
+        if (AopProxyUtils.ultimateTargetClass(instance).getAnnotation(TraceTask.class) != null) {
             eventEnum = EventEnum.TASK;
         } else {
             eventEnum = EventEnum.JOB;
         }
 
         /* 计入 */
-        MonitorUnit monitorUnit = CACHE.get(instanceId);
+
+        MonitorUnit monitorUnit = CACHE.get(unitId);
         if (monitorUnit == null) {
-            monitorUnit = MonitorUnit.begin(instanceId, className, methodName, eventEnum, eventIds, args);
-            CACHE.put(instanceId, monitorUnit);
+            monitorUnit = MonitorUnit.begin(unitId, instanceId, className, methodName, eventEnum, eventIds, args);
         } else {
             monitorUnit.finish();
         }
+        CACHE.put(unitId, monitorUnit);
     }
 
     /**

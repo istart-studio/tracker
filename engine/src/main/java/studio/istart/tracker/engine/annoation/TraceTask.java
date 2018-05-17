@@ -15,7 +15,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * @since 1.8
  */
 @Retention(value = RUNTIME)
-@Target(value = {ElementType.TYPE, ElementType.METHOD})
+@Target(value = {ElementType.TYPE})
 public @interface TraceTask {
 
 }

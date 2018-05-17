@@ -10,7 +10,7 @@ import studio.istart.tracker.engine.annoation.TraceTask;
  */
 @TraceTask
 @Component
-public class ExampleTaskEvent {
+public class ExampleTaskEvent_1 {
 
     public String start(String startProp, String args) {
         System.out.println(startProp);

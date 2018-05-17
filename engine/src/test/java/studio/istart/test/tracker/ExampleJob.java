@@ -14,7 +14,7 @@ import studio.istart.tracker.engine.annoation.TraceJob;
 public class ExampleJob {
 
     @Autowired
-    ExampleTaskEvent exampleTaskEvent;
+    ExampleTaskEvent_1 exampleTaskEvent1;
     @Autowired
     ExampleTaskEvent_2 exampleTaskEvent_2;
 
@@ -22,21 +22,22 @@ public class ExampleJob {
 
     @TraceJob
     @Scheduled(cron = "0 0/1 * * * *")
-    public void example1() throws InterruptedException {
-        exampleTaskEvent.start("this is a start prop", "second arg");
-        exampleTaskEvent.processed();
-
-        exampleTaskEvent.end("this is an end prop", "1", "2");
-        Thread.sleep(5000);
+    public void job1() throws InterruptedException {
+        Thread.sleep(1000);
+        exampleTaskEvent1.start("this is a start prop", "second arg");
+        Thread.sleep(1000);
+        exampleTaskEvent1.processed();
+        Thread.sleep(1000);
+        exampleTaskEvent1.end("this is an end prop", "1", "2");
+        Thread.sleep(1000);
     }
 
     @TraceJob
     @Scheduled(cron = "0/30 * * * * *")
-    public void example2() throws InterruptedException {
-        exampleTaskEvent.start("this is a start prop", "second arg");
-        exampleTaskEvent.processed();
+    public void job2() throws InterruptedException {
+        exampleTaskEvent1.start("this is a start prop", "second arg");
+        exampleTaskEvent1.processed();
         exampleTaskEvent_2.start("this event 2", "event 2");
-        exampleTaskEvent.end("this is an end prop", "1", "2");
-        Thread.sleep(5000);
+        exampleTaskEvent1.end("this is an end prop", "1", "2");
     }
 }

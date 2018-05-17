@@ -18,20 +18,21 @@ import studio.istart.tracker.engine.Monitor;
 public class AOPTest {
 
     @Autowired
-    ExampleTaskEvent exampleTaskEvent;
+    ExampleTaskEvent_1 exampleTaskEvent1;
     @Autowired
     ExampleJob exampleJob;
 
     @Test
     public void task() {
-        exampleTaskEvent.start("this is a start prop", "second arg");
-        exampleTaskEvent.processed();
-        exampleTaskEvent.end("this is an end prop", "1", "2");
+        exampleTaskEvent1.start("this is a start prop", "second arg");
+        exampleTaskEvent1.processed();
+        exampleTaskEvent1.end("this is an end prop", "1", "2");
     }
 
     @Test
     public void process() throws InterruptedException {
-        exampleJob.example2();
+        exampleJob.job1();
+        exampleJob.job2();
     }
 
     @After

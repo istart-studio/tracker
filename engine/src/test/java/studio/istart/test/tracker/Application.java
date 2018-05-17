@@ -1,5 +1,6 @@
 package studio.istart.test.tracker;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan({"studio.istart.tracker.engine"})
 @ComponentScan({"studio.istart.test.tracker"})
 public class Application {
+
 
     public static void main(String[] main) {
         SpringApplication.run(Application.class);
