@@ -31,7 +31,7 @@ public class AOPTest {
 
     @Test
     public void process() throws InterruptedException {
-        exampleJob.job1();
+//        exampleJob.job1();
         exampleJob.job2();
     }
 

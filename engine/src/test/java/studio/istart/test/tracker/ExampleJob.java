@@ -13,16 +13,20 @@ import studio.istart.tracker.engine.annoation.TraceJob;
 @Component
 public class ExampleJob {
 
+//    ExampleTaskEvent_1 exampleTaskEvent1 = new ExampleTaskEvent_1();
+//    ExampleTaskEvent_2 exampleTaskEvent_2 = new ExampleTaskEvent_2();
+
     @Autowired
-    ExampleTaskEvent_1 exampleTaskEvent1;
+    ExampleTaskEvent_1 exampleTaskEvent1 ;
     @Autowired
-    ExampleTaskEvent_2 exampleTaskEvent_2;
+    ExampleTaskEvent_2 exampleTaskEvent_2 ;
 
     String internalProp = "Internal prop";
 
     @TraceJob
     @Scheduled(cron = "0 0/1 * * * *")
     public void job1() throws InterruptedException {
+        System.out.println("exampleTaskEvent1 hashcode:" + exampleTaskEvent1.hashCode());
         Thread.sleep(1000);
         exampleTaskEvent1.start("this is a start prop", "second arg");
         Thread.sleep(1000);

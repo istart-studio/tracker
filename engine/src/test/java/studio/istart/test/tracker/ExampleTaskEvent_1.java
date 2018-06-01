@@ -3,6 +3,9 @@ package studio.istart.test.tracker;
 import org.springframework.stereotype.Component;
 import studio.istart.tracker.engine.annoation.TraceTask;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 /**
  * @author DongYan
  * @version 1.0.0
@@ -24,5 +27,15 @@ public class ExampleTaskEvent_1 {
     public String end(String endProp, String... argParams) {
         System.out.println(endProp);
         return "end....";
+    }
+
+    @PostConstruct
+    public void start(){
+        System.out.println("ExampleTaskEvent_1 start");
+    }
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("ExampleTaskEvent_1 destroy");
     }
 }
