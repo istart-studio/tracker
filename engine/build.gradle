@@ -1,0 +1,49 @@
+
+buildscript {
+    ext {
+        springBootVersion = "1.5.9.RELEASE"
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+
+
+group 'studio.istart.tracker'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+configurations {
+    all*.exclude module: 'spring-boot-starter-logging'
+    all*.exclude module: "logback-classic"
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //spring boot
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: springBootVersion
+
+    //the IDE plugin "lombok" should be install,java9 with 1.16.19+ will be fine.
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.16.18'
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: springBootVersion
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-log4j2', version: springBootVersion
+}
+
