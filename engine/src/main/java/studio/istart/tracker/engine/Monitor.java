@@ -3,6 +3,7 @@ package studio.istart.tracker.engine;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.CodeSignature;
+import org.springframework.aop.framework.AopContext;
 import org.springframework.aop.framework.AopProxyUtils;
 import studio.istart.tracker.engine.annoation.TraceTask;
 import studio.istart.tracker.engine.constant.EventEnum;
@@ -37,15 +38,21 @@ public class Monitor {
         return CACHE;
     }
 
+    /**
+     * JOB下的子流程实例ID与joinPoint.getTarget()不一致
+     * @param joinPoint
+     * @throws IllegalAccessException
+     */
     public static synchronized void record(JoinPoint joinPoint) throws IllegalAccessException {
+
         String unitId = String.valueOf(joinPoint.getSignature().hashCode());
-        Object instance = joinPoint.getThis();
-        String instanceId = String.valueOf(joinPoint.getThis().hashCode());
+        Object instance = joinPoint.getTarget();
+        String instanceId = String.valueOf(instance.hashCode());
         String className = joinPoint.getSignature().getDeclaringTypeName();
         String methodName = joinPoint.getSignature().getName();
 
         /* 获取job中的所有属性引用 */
-        Object instanceWithInternalReference = joinPoint.getTarget();
+        Object instanceWithInternalReference = instance;
         Set<Object> internalReferences = getInternalReference(instanceWithInternalReference);
         Set<String> eventIds = getInternalReferencesIds(internalReferences);
 
@@ -92,8 +99,9 @@ public class Monitor {
         Set<Object> internalReferenceSet = new HashSet<>();
         for (Field field : fields) {
             field.setAccessible(true);
+            /* 获取（代理）子实例 */
             Object internalInstance = field.get(instanceWithInternalReference);
-            //是@Task的类型，才会计入跟踪
+            /* 是@Task的类型，才会计入跟踪 */
             TraceTask traceTask = AopProxyUtils.ultimateTargetClass(internalInstance).getAnnotation(TraceTask.class);
             if (traceTask != null) {
                 internalReferenceSet.add(internalInstance);
