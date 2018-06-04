@@ -1,5 +1,7 @@
 package studio.istart.test.tracker;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import studio.istart.tracker.engine.annoation.TraceTask;
 
@@ -10,6 +12,7 @@ import studio.istart.tracker.engine.annoation.TraceTask;
  */
 @TraceTask
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ExampleTaskEvent_2 {
 
     public String start(String startProp, String args) {

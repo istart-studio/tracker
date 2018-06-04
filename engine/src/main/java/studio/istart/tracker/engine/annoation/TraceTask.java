@@ -1,6 +1,8 @@
 package studio.istart.tracker.engine.annoation;
 
 
+import studio.istart.tracker.engine.constant.ProcessIdConstant;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -17,5 +19,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(value = RUNTIME)
 @Target(value = {ElementType.TYPE})
 public @interface TraceTask {
-
+    String processId() default ProcessIdConstant.NONE;
 }

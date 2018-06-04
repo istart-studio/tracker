@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
  */
 @Data
 public class MonitorUnit {
-    private String unitId;
+    private String processId;
+    private String signId;
     private String instanceId;
     private String className;
     private String methodName;
@@ -34,7 +35,8 @@ public class MonitorUnit {
         String argsKeyString = args.keySet().stream().map(String::toString)
             .collect(Collectors.joining(","));
         return "MonitorUnit{" +
-            "unitId='" + unitId + '\'' +
+            "processId='" + processId + '\'' +
+            "signId='" + signId + '\'' +
             ", instanceId='" + instanceId + '\'' +
             ", className='" + className + '\'' +
             ", methodName='" + methodName + '\'' +
@@ -46,9 +48,10 @@ public class MonitorUnit {
             '}';
     }
 
-    public static MonitorUnit begin(String unitId, String instanceId, String className, String methodName, EventEnum eventEnum, Set<String> subInstanceIds, Map<String, Object> args) {
+    public static MonitorUnit begin(String unitId, String signId, String instanceId, String className, String methodName, EventEnum eventEnum, Set<String> subInstanceIds, Map<String, Object> args) {
         MonitorUnit monitorUnit = new MonitorUnit();
-        monitorUnit.setUnitId(unitId);
+        monitorUnit.setProcessId(unitId);
+        monitorUnit.setSignId(signId);
         monitorUnit.setInstanceId(instanceId);
         monitorUnit.setStartTime(Instant.now().toEpochMilli());
         monitorUnit.setClassName(className);

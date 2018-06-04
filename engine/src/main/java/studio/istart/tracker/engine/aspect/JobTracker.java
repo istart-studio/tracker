@@ -20,20 +20,24 @@ import studio.istart.tracker.engine.Monitor;
 public class JobTracker {
 
 
-    @Pointcut("execution(@studio.istart.tracker.engine.annoation.TraceJob * *(..))")
+    @Pointcut("@within(studio.istart.tracker.engine.annoation.TraceJob)")
     public void processMethod() {
     }
 
+    @Pointcut("execution(public * *(..))")
+    public void publicMethod() {
+    }
 
-    @Before("processMethod()")
-    public void logMethodAnnotatedBean(JoinPoint joinPoint) throws Throwable {
+
+    @Before("publicMethod() && processMethod()")
+    public void logMethodAnnotatedBean(JoinPoint joinPoint) throws NoSuchFieldException, IllegalAccessException {
         log.info("before");
         Monitor.record(joinPoint);
     }
 
 
-    @After("processMethod()")
-    public void after(JoinPoint joinPoint) throws Throwable {
+    @After("publicMethod() && processMethod()")
+    public void after(JoinPoint joinPoint) throws NoSuchFieldException, IllegalAccessException {
         log.info("after");
         Monitor.record(joinPoint);
     }

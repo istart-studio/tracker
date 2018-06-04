@@ -28,7 +28,8 @@
             <table class="table table-condensed table-hover table-responsive">
                 <thead>
                 <tr>
-                    <th class="active">unitId</th>
+                    <th class="success">processId</th>
+                    <th class="danger">signId</th>
                     <th class="active">instanceId</th>
                     <th class="success">className</th>
                     <th class="warning">methodName</th>
@@ -42,8 +43,9 @@
                 <tbody id="main">
                 <!-- On cells (`td` or `th`) -->
                 <tr id="rowTemplate" style="display: none">
-                    <td class="active">unitId</td>
-                    <td class="active">instanceId</td>
+                    <td class="success">processId</td>
+                    <td class="danger">signId</td>
+                    <td class="info">instanceId</td>
                     <td class="success">className</td>
                     <td class="warning">methodName</td>
                     <td class="danger">eventEnum</td>
@@ -57,7 +59,7 @@
             </table>
         </div>
         <div class="panel-footer">
-            <div id="result"></div>
+            <div id="result" style="display:none"></div>
         </div>
     </div>
 </div>

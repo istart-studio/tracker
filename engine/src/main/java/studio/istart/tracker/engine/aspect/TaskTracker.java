@@ -34,14 +34,14 @@ public class TaskTracker {
     }
 
     @Before("publicMethodInsideAClassMarkedWithAtMonitor()")
-    public void logMethodAnnotatedBean(JoinPoint joinPoint) throws ClassNotFoundException, IllegalAccessException {
+    public void logMethodAnnotatedBean(JoinPoint joinPoint) throws IllegalAccessException, NoSuchFieldException {
         log.info("before");
         Monitor.record(joinPoint);
     }
 
 
     @After("publicMethodInsideAClassMarkedWithAtMonitor()")
-    public void after(JoinPoint joinPoint) throws Throwable {
+    public void after(JoinPoint joinPoint) throws NoSuchFieldException, IllegalAccessException {
         log.info("after");
         Monitor.record(joinPoint);
     }

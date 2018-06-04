@@ -1,5 +1,7 @@
 package studio.istart.test.tracker;
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import studio.istart.tracker.engine.annoation.TraceTask;
 
@@ -13,6 +15,7 @@ import javax.annotation.PreDestroy;
  */
 @TraceTask
 @Component
+@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class ExampleTaskEvent_1 {
 
     public String start(String startProp, String args) {
@@ -30,12 +33,12 @@ public class ExampleTaskEvent_1 {
     }
 
     @PostConstruct
-    public void start(){
+    public void start() {
         System.out.println("ExampleTaskEvent_1 start");
     }
 
     @PreDestroy
-    public void destroy(){
+    public void destroy() {
         System.out.println("ExampleTaskEvent_1 destroy");
     }
 }
